@@ -16,8 +16,8 @@
         <el-aside width="200px">
           <el-menu :default-active="$route.path" router>
             <el-submenu v-for="(item, index) in routes" :index="index+''" :key="index" v-if="!item.hidden">
-              <template slot="title"><i :class="item.iconCls"></i>{{item.name}}</template>
-              <el-menu-item v-for="child in item.children" :index="child.path" :key="child.path">{{child.name}}</el-menu-item>
+              <template slot="title"><i :class="item.iconCls"></i>{{item.name[$i18n.locale]}}</template>
+              <el-menu-item v-for="child in item.children" :index="child.path" :key="child.path">{{child.name[$i18n.locale]}}</el-menu-item>
             </el-submenu>
           </el-menu>
         </el-aside>

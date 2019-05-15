@@ -2,10 +2,14 @@
   <div class="login" :style="{height: clientHeight+'px'}">
     <div class="inner-box">
       <img src="@/assets/logo.png"/>
-      <el-input v-model="account" placeholder="请输入账号"></el-input>
-      <el-input v-model="password" placeholder="请输入密码"></el-input>
-      <el-button class="forget" type="text">忘记密码</el-button>
-      <el-button class="login-in" type="primary" @click="login">登录</el-button>
+      <el-input v-model="account" :placeholder="$t('Login.placeholderAccount')"></el-input>
+      <el-input v-model="password" :placeholder="$t('Login.placeholderPass')"></el-input>
+      <el-select v-model="$i18n.locale ">
+        <el-option value="cn" label="简体中文">简体中文</el-option>
+        <el-option value="hk" label="繁體中文">繁體中文</el-option>
+      </el-select>
+      <el-button class="forget" type="text">{{$t('Login.forget')}}</el-button>
+      <el-button class="login-in" type="primary" @click="login">{{$t('Login.longin')}}</el-button>
     </div>
   </div>
 </template>
@@ -45,6 +49,10 @@ export default {
         height: 37px;
         margin: 0 auto;
         margin-top: 40px;
+      }
+      .el-select{
+        display: block;
+        margin: 0 auto;
       }
       .el-input{
         display: block;
