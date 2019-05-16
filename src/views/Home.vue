@@ -22,7 +22,7 @@
                 <el-menu-item v-for="child in item.children" :index="child.path" :key="child.path">{{child.name[$i18n.locale]}}</el-menu-item>
               </el-submenu>
               <el-menu-item  v-if="item.leaf&&item.children.length>0" :key="index" :index="item.children[0].path">
-                <i :class="item.iconCls"/>
+                <i :class="item.iconCls" />
                 <span>{{item.children[0].name[$i18n.locale]}}</span>
               </el-menu-item >
             </template>
@@ -96,6 +96,7 @@ export default {
     color: #333;
     .el-menu{
       height: 100%;
+      background: #616b77;
     }
   }
 }

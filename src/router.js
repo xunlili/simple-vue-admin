@@ -65,8 +65,8 @@ export default new Router({
       iconCls: 'el-icon-error',
       component: () => import('./views/Home.vue'),
       children: [
-        { path: '/one-3', name: { cn: '导航3-c',hk:'導航3-c' }, component: () => import('./views/nav-three/nav-three-a.vue') },
-        { path: '/two-3', name: { cn: '导航3-c',hk:'導航3-c' }, component: () => import('./views/nav-three/nav-three-b.vue') },
+        { path: '/one-3', name: { cn: '导航3-a',hk:'導航3-c' }, component: () => import('./views/nav-three/nav-three-a.vue') },
+        { path: '/two-3', name: { cn: '导航3-b',hk:'導航3-c' }, component: () => import('./views/nav-three/nav-three-b.vue') },
         { path: '/three-3', name: { cn: '导航3-c',hk:'導航3-c' }, component: () => import('./views/nav-three/nav-three-c.vue') },
       ]
     },
