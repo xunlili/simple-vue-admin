@@ -2,6 +2,10 @@
   <div class="home" :style="{height: clientHeight+'px'}">
     <el-container class="container">
       <el-header style="text-align: right; font-size: 12px">
+        <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
+          <el-radio-button :label="false">展开</el-radio-button>
+          <el-radio-button :label="true">收起</el-radio-button>
+        </el-radio-group>
         <el-select v-model="$i18n.locale " class="sel-lang" popper-class="eloption">
           <el-option value="cn" label="简体中文">简体中文</el-option>
           <el-option value="hk" label="繁體中文">繁體中文</el-option>
@@ -10,16 +14,16 @@
         <span>王小虎</span>
       </el-header>
       <el-container>
-        <el-aside width="200px">
-          <el-menu :default-active="$route.path" router>
+        <el-aside width='auto'>
+          <el-menu :default-active="$route.path" class="el-menu-vertical-demo" :collapse="isCollapse" router>
             <template v-for="(item, index) in routes" v-if="!item.hidden">
               <el-submenu :key="index" :index="index+''" v-if="!item.leaf">
-                <template slot="title"><i :class="item.iconCls"></i>{{item.name[$i18n.locale]}}</template>
+                <template slot="title"><i :class="item.iconCls"></i><span>{{item.name[$i18n.locale]}}</span></template>
                 <el-menu-item v-for="child in item.children" :index="child.path" :key="child.path">{{child.name[$i18n.locale]}}</el-menu-item>
               </el-submenu>
               <el-menu-item  v-if="item.leaf&&item.children.length>0" :key="index" :index="item.children[0].path">
                 <i :class="item.iconCls"/>
-                {{item.children[0].name[$i18n.locale]}}
+                <span>{{item.children[0].name[$i18n.locale]}}</span>
               </el-menu-item >
             </template>
           </el-menu>
@@ -38,6 +42,7 @@ export default {
   data() {
     return {
       clientHeight: document.documentElement.clientHeight,
+      isCollapse: false,
     }
   },
   computed: {
@@ -53,6 +58,10 @@ export default {
 }
 </script>
 <style lang="scss">
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 200px;
+    min-height: 400px;
+  }
 .sel-lang{
   width: 150px;
   margin-right: 20px;
@@ -72,6 +81,10 @@ export default {
     background-color: #B3C0D1;
     color: #333;
     line-height: 60px;
+    .el-radio-group{
+      float: left;
+      line-height: 60px;
+    }
   }
 
 

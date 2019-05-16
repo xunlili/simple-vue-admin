@@ -37,10 +37,6 @@ export default new Router({
           path: '/one-1',
           name: { cn: '导航1-a',hk:'導航1-a' },
           component: () => import('./views/nav-one/nav-one-a.vue'),
-          // children: [
-          //   { path: '/one-1-1', component: Page4, name: '页面4' },
-          //   { path: '/one-1-2', component: Page5, name: '页面5' }
-          // ]
         },
         { path: '/two-1', name: { cn: '导航1-b',hk:'導航1-b' }, component: () => import('./views/nav-one/nav-one-b.vue') },
         { path: '/three-1', name: { cn: '导航1-c',hk:'導航1-c' }, component: () => import('./views/nav-one/nav-one-c.vue') },
