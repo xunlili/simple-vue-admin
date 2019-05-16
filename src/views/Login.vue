@@ -4,7 +4,7 @@
       <img src="@/assets/logo.png"/>
       <el-input v-model="account" :placeholder="$t('Login.placeholderAccount')"></el-input>
       <el-input v-model="password" :placeholder="$t('Login.placeholderPass')"></el-input>
-      <el-select v-model="$i18n.locale ">
+      <el-select v-model="$i18n.locale" popper-class="login-eloption">
         <el-option value="cn" label="简体中文">简体中文</el-option>
         <el-option value="hk" label="繁體中文">繁體中文</el-option>
       </el-select>
@@ -33,6 +33,9 @@ export default {
 }
 </script>
 <style lang="scss">
+  .login-eloption{
+    min-width: 400px !important;
+  }
   .login{
     width: 100%;
     display: flex;

@@ -5,5 +5,8 @@ export default {
     placeholderPass: '請輸入密碼',
     forget: '忘記密碼',
     longin: '登錄',
+  },
+  header: {
+    logout: '退出',
   }
 }
