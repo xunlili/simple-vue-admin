@@ -33,7 +33,15 @@ export default new Router({
       iconCls: 'el-icon-tickets',
       component: () => import('./views/Home.vue'),
       children: [
-        { path: '/one-1', name: { cn: '导航1-a',hk:'導航1-a' }, component: () => import('./views/nav-one/nav-one-a.vue') },
+        { 
+          path: '/one-1',
+          name: { cn: '导航1-a',hk:'導航1-a' },
+          component: () => import('./views/nav-one/nav-one-a.vue'),
+          // children: [
+          //   { path: '/one-1-1', component: Page4, name: '页面4' },
+          //   { path: '/one-1-2', component: Page5, name: '页面5' }
+          // ]
+        },
         { path: '/two-1', name: { cn: '导航1-b',hk:'導航1-b' }, component: () => import('./views/nav-one/nav-one-b.vue') },
         { path: '/three-1', name: { cn: '导航1-c',hk:'導航1-c' }, component: () => import('./views/nav-one/nav-one-c.vue') },
       ]
@@ -64,6 +72,15 @@ export default new Router({
         { path: '/one-3', name: { cn: '导航3-c',hk:'導航3-c' }, component: () => import('./views/nav-three/nav-three-a.vue') },
         { path: '/two-3', name: { cn: '导航3-c',hk:'導航3-c' }, component: () => import('./views/nav-three/nav-three-b.vue') },
         { path: '/three-3', name: { cn: '导航3-c',hk:'導航3-c' }, component: () => import('./views/nav-three/nav-three-c.vue') },
+      ]
+    },
+    {
+      path: '/',
+      component: () => import('./views/Home.vue'),
+      leaf: true,//只有一个节点
+      iconCls: 'el-icon-news',
+      children: [
+          { path: '/echarts', name: { cn: '图表',hk:'圖表' }, component: () => import('./views/nav-four/chart.vue') }
       ]
     }
   ]

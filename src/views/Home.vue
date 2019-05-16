@@ -12,10 +12,16 @@
       <el-container>
         <el-aside width="200px">
           <el-menu :default-active="$route.path" router>
-            <el-submenu v-for="(item, index) in routes" :index="index+''" :key="index" v-if="!item.hidden">
-              <template slot="title"><i :class="item.iconCls"></i>{{item.name[$i18n.locale]}}</template>
-              <el-menu-item v-for="child in item.children" :index="child.path" :key="child.path">{{child.name[$i18n.locale]}}</el-menu-item>
-            </el-submenu>
+            <template v-for="(item, index) in routes" v-if="!item.hidden">
+              <el-submenu :key="index" :index="index+''" v-if="!item.leaf">
+                <template slot="title"><i :class="item.iconCls"></i>{{item.name[$i18n.locale]}}</template>
+                <el-menu-item v-for="child in item.children" :index="child.path" :key="child.path">{{child.name[$i18n.locale]}}</el-menu-item>
+              </el-submenu>
+              <el-menu-item  v-if="item.leaf&&item.children.length>0" :key="index" :index="item.children[0].path">
+                <i :class="item.iconCls"/>
+                {{item.children[0].name[$i18n.locale]}}
+              </el-menu-item >
+            </template>
           </el-menu>
         </el-aside>
 
