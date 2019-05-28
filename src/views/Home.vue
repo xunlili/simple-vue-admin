@@ -11,24 +11,14 @@
           <el-option value="hk" label="繁體中文">繁體中文</el-option>
         </el-select>
         <span @click="logOut" class="log-out">{{$t('header.logout')}}</span>
-        <span>王小虎</span>
+        <span>王小虎{{isCollapse}}</span>
       </el-header>
       <el-container>
-        <el-aside width='auto'>
+        <el-aside class="asider" width='auto'>
           <el-menu :default-active="$route.path" class="el-menu-vertical-demo" :collapse="isCollapse" router>
-            <template v-for="(item, index) in routes" v-if="!item.hidden">
-              <el-submenu :key="index" :index="index+''" v-if="!item.leaf">
-                <template slot="title"><i :class="item.iconCls"></i><span>{{item.name[$i18n.locale]}}</span></template>
-                <el-menu-item v-for="child in item.children" :index="child.path" :key="child.path">{{child.name[$i18n.locale]}}</el-menu-item>
-              </el-submenu>
-              <el-menu-item  v-if="item.leaf&&item.children.length>0" :key="index" :index="item.children[0].path">
-                <i :class="item.iconCls" />
-                <span>{{item.children[0].name[$i18n.locale]}}</span>
-              </el-menu-item >
-            </template>
+          <asider class="first-level-asider" :routes="routes" :isCollapse="isCollapse"/>
           </el-menu>
         </el-aside>
-
         <transition name="fade" mode="out-in">
           <router-view></router-view>
         </transition>
@@ -37,8 +27,12 @@
   </div>
 </template>
 <script>
+import asider from './layout/asider.vue'
 export default {
   name: 'home',
+  components: {
+    asider
+  },
   data() {
     return {
       clientHeight: document.documentElement.clientHeight,
@@ -58,9 +52,11 @@ export default {
 }
 </script>
 <style lang="scss">
+.asider{
+    // padding-left: 40px;
+  }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
-    width: 200px;
-    min-height: 400px;
+  width: 98%;
   }
 .sel-lang{
   width: 150px;
@@ -72,6 +68,9 @@ export default {
 .home{
   .container{
     border: 1px solid #eee;
+    .first-level-asider{
+      padding-left: 0 !important;
+    }
     .log-out{
       margin-right: 20px;
       cursor:pointer;

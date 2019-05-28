@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <router-view></router-view>
-  </div>
+  <div>nav-one-a-a</div>
 </template>
 <script>
 export default {
-  name: 'nav-one-a'
+  name: 'nav-one-a-a'
 }
 </script>
 <style lang="scss">
