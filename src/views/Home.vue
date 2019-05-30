@@ -15,13 +15,20 @@
       </el-header>
       <el-container>
         <el-aside class="asider" width='auto'>
-          <el-menu :default-active="$route.path" class="el-menu-vertical-demo" :collapse="isCollapse" router>
+          <el-menu :default-active="$route.path" @select="select" class="el-menu-vertical-demo" :collapse="isCollapse" router>
           <asider class="first-level-asider" :routes="routes" :isCollapse="isCollapse"/>
           </el-menu>
         </el-aside>
-        <transition name="fade" mode="out-in">
-          <router-view></router-view>
-        </transition>
+        <div style="width: 100%">
+          <el-breadcrumb separator="/">
+            <el-breadcrumb-item v-for="(item, index) in breadcrumbDatas" :key="index" :to="{path: item.nextPath||item.path}">{{item.name[$i18n.locale]}}</el-breadcrumb-item>
+          </el-breadcrumb>
+          <div class="content">
+            <transition name="fade" mode="out-in">
+              <router-view></router-view>
+            </transition>
+          </div>
+        </div>
       </el-container>
     </el-container>
   </div>
@@ -37,6 +44,7 @@ export default {
     return {
       clientHeight: document.documentElement.clientHeight,
       isCollapse: false,
+      breadcrumbDatas: [],
     }
   },
   computed: {
@@ -44,19 +52,63 @@ export default {
       return this.$router.options.routes;
     }
   },
+  mounted() {
+    this.breadcrumbDatas = this.breadcrumb(this.routes, this.$route.path);
+  },
   methods: {
     logOut() {
       this.$router.push({ path:'/login' });
-    }
+    },
+    select(index,indexPath) {
+      this.breadcrumbDatas = this.breadcrumb(this.routes, index);
+    },
+    breadcrumb(array, label) {
+      let stack = [];
+      let check = true;
+      let lastTruePath = '';
+      let fun = (array, label) => {
+        array.forEach(item => {
+            if (!check) return;
+            stack.push(item);
+            if (item['path'] === label) {
+                check = false;
+                lastTruePath = array[0].path
+            } else if (item['children']&&item['children'].length>1) {
+                stack[stack.length-1].nextPath = item['children'][0].path;
+                fun(item['children'], label);
+            } else if (item['children']&&item['children'].length === 1) {
+                check = false;
+                stack.push(item['children'][0]);
+                stack.shift();
+            } else {
+                stack.pop();
+            }
+        });
+        if (check) stack.pop();
+      }
+      fun(array, label)
+
+      stack.forEach(ele => {
+        if (ele.nextPath) ele.nextPath = lastTruePath;
+      })
+      return stack;
+    },
   }
 }
 </script>
 <style lang="scss">
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
 .asider{
     // padding-left: 40px;
   }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 98%;
+  width: 100%;
+  border: 0px;
   }
 .sel-lang{
   width: 150px;
@@ -89,6 +141,13 @@ export default {
 
   .el-container{
     height: 100%;
+    .el-breadcrumb{
+      width: 100%;
+      height: 50px;
+      line-height: 50px;
+      border-bottom: 1px solid #ccc;
+      background: #fff;
+    }
   }
   .el-aside{
     height: 100%;
@@ -97,6 +156,11 @@ export default {
       height: 100%;
       background: #616b77;
     }
+  }
+  .content{
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-right: 20px;
   }
 }
 </style>
